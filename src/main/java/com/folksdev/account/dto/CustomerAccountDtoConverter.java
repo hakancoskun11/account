@@ -8,10 +8,10 @@ import java.util.stream.Collectors;
 
 @Component
 public class CustomerAccountDtoConverter {
-    private final TransactionDtoConverter transactionDtoConverter;
+    private final TransactionDtoConverter converter;
 
     public CustomerAccountDtoConverter(TransactionDtoConverter converter) {
-        this.transactionDtoConverter = converter;
+        this.converter = converter;
     }
 
     public CustomerAccountDto convert(Account from) {
@@ -20,7 +20,7 @@ public class CustomerAccountDtoConverter {
                 from.getBalance(),
                 from.getTransaction()
                         .stream()
-                        .map(transactionDtoConverter::convert)
+                        .map(converter::convert)
                         .collect(Collectors.toSet()),
                 from.getCreationDate());
     }

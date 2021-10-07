@@ -17,8 +17,9 @@ public class CustomerService {
         this.converter = converter;
     }
     //protected paket içine açık sadece private class içi public her yerden
-    protected Customer findCustomerById(String id) {
-        return customerRepository.findById(id).orElseThrow(
+    protected Customer findCustomerById(String id)  {
+        return customerRepository.findById(id)
+                .orElseThrow(
                 () -> new CustomerNotFoundException("customer could not find by id "+id));
     }
 
