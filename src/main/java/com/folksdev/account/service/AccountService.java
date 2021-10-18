@@ -8,9 +8,13 @@ import com.folksdev.account.model.Customer;
 import com.folksdev.account.model.Transaction;
 import com.folksdev.account.repository.AccountRepository;
 import org.springframework.stereotype.Service;
+import java.time.Clock;
+import java.time.Instant;
 
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
+import java.util.UUID;
+import java.util.function.Supplier;
 
 @Service
 public class AccountService {
@@ -18,6 +22,7 @@ public class AccountService {
     private final AccountRepository accountRepository;
     private final CustomerService customerService;
     private final AccountDtoConverter converter;
+
 
     public AccountService(AccountRepository accountRepository,
                           CustomerService customerService,
@@ -41,4 +46,5 @@ public class AccountService {
         }
         return converter.convert(accountRepository.save(account));
     }
+
 }

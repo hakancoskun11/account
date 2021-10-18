@@ -8,15 +8,16 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.context.request.WebRequest;
-
+import org.springframework.web.servlet.mvc.method.annotation.ResponseEntityExceptionHandler;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @RestControllerAdvice
-public class GeneralExceptionHandler {
+public class GeneralExceptionHandler extends ResponseEntityExceptionHandler {
 
 
+    @Override
     protected ResponseEntity<Object> handleMethodArgumentNotValid(MethodArgumentNotValidException ex,
                                                                   HttpHeaders headers,
                                                                   HttpStatus status,
@@ -35,3 +36,8 @@ public class GeneralExceptionHandler {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
     }
 }
+
+/*
+normalde controller da hata olunca service e geri döner orada hata belirir sonra controlera dönüp işlenirdi.
+Ama RestControllerAdvice ile service ye geldikten sonra ben bu hatayı biliyorum diye araya giriyor ve exception handler
+ile işlediği hata mesajını http response olarak controler a uğramadan kullanıcıya veriyor*/
